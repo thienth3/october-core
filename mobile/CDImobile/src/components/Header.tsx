@@ -7,16 +7,21 @@ interface Props {
   title: string;
   leftButtonPress?: () => void;
   rightButtonPress?: () => void;
+  iconLeft?: string;
+  iconRight?: string;
 }
 
 export const Header = (props: Props) => {
   
-    const { title, leftButtonPress, rightButtonPress } = props;
+    const { title, leftButtonPress, rightButtonPress , iconLeft, iconRight} = props;
     return (
       <View style={styles.container}>
         <View style={styles.leftContainer}>
           <TouchableOpacity style={styles.iconButton} onPress={leftButtonPress}>
-            <Icon name="ios-menu" size={24} />
+            { (iconLeft != undefined && iconLeft != "") ? 
+              <Icon name = {iconLeft} size={24} /> :
+              <Icon name="ios-menu" size={24} />
+            }
           </TouchableOpacity>
         </View>
         <View style={styles.midContainer}>
@@ -25,7 +30,10 @@ export const Header = (props: Props) => {
         <View style={styles.rightContainer}>
           {rightButtonPress ? (
             <TouchableOpacity style={styles.iconButton} onPress={rightButtonPress}>
-              <Icon name="ios-power" size={24} />
+              { (iconRight != undefined && iconRight != "") ? 
+                <Icon name = {iconRight} size={24} /> :
+                <Icon name="ios-power" size={24} />
+              }
             </TouchableOpacity>
           ) : null}
         </View>

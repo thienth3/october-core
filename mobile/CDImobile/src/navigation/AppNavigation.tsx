@@ -18,7 +18,7 @@ import Blog from "../screens/Blog";
 // import Profile from "../screens/AppScreens/Profile";
 import SideBar from "../screens/SideBar";
 import Login from "../screens/screenAuth/Login";
-// import Register from "../screens/AuthScreens/Register";
+import Register from "../screens/screenAuth/Register";
 import AuthLoading from "../screens/screenLoading/AuthLoading";
 
 const MainStack = createStackNavigator(
@@ -36,7 +36,7 @@ const MainStack = createStackNavigator(
 const AuthStack = createStackNavigator(
   {
     Login: { screen: Login },
-    // Register: { screen: Register }
+    Register: { screen: Register }
   },
   {
     initialRouteName: "Login",
@@ -65,7 +65,7 @@ const AppStack = createDrawerNavigator(
   {
     drawerWidth: width - 50,
     drawerPosition: "left",
-    contentComponent: props => <SideBar {...props} />
+    contentComponent: (props: any) => <SideBar {...props} />
   }
 );
 
