@@ -14,9 +14,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 // import { loginUserService } from "../../../redux/services/user";
-import { Input, 
-  ButtonComponent
- } from "../../../components";
+import { Input, ButtonComponent } from "../../../components";
 import styles from "./styles";
 import { connect } from 'react-redux';
 import { actionLogin } from "../../../redux-saga/actions/loginAction";
@@ -24,6 +22,7 @@ import { actionLogin } from "../../../redux-saga/actions/loginAction";
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
   handleLogin: Function;
+  loginReducer: any;
 }
 interface userData {
   username: string;
@@ -45,12 +44,17 @@ const loginSchema = Yup.object().shape({
 
 class Login extends Component<Props, {}> {
   handleSignIn = (values: userData) => {
-    const { navigation, handleLogin } = this.props;
+    const { navigation, handleLogin, loginReducer } = this.props;
     handleLogin(values);
+    console.log('==============loginReducer=>  ', JSON.stringify(loginReducer) );
+    
     // loginUserService(values.username, values.password).then(res => {
-    let token = AsyncStorage.getItem('token');
+    // let token = AsyncStorage.getItem('token');
     //   console.log('===============>  ', token);
-    if(token != null) navigation.navigate("AppStack");
+    
+    if(loginReducer.isLoading == false && loginReducer.name != '') {
+      navigation.navigate("AppStack");
+    }  
     // });
   };
 
@@ -65,9 +69,11 @@ class Login extends Component<Props, {}> {
             <Formik
               initialValues={{ username: "", password: "" }}
               // validationSchema={loginSchema}
-              onSubmit={values => this.handleSignIn(values)}
+              onSubmit={(values : any) => {
+                this.handleSignIn(values)
+              }}
             >
-              {props => {
+              {(props : any) => {
                 console.log(props, "fdsfsdfdsf");
                 return (
                   <View>
@@ -108,12 +114,11 @@ class Login extends Component<Props, {}> {
 }
 
 const mapStateToProps = (state: any) => {
-  console.log(state);
   return {
     loginReducer: state.loginReducer
   };
 };
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: any) => { 
     return {
       handleLogin: (values: userData) => dispatch(actionLogin(values)),
       

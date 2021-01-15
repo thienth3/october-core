@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import request from '../../config/requests';
+import request from '../../services';
 import { AsyncStorage } from 'react-native';
 import { actionLogin } from '../actions/loginAction';
 // import {actionLogin, HANDLE_LOGIN} from '../actions/loginAction';
@@ -21,7 +21,7 @@ function* doLogin(username: any, password: any) {
             `Login Saga - postLoginAction: username: ${username} - password: ${password}`,
           );
     let response = yield call(request.login, username, password); // Gọi API Login ở đây.
-    yield call(saveTokenToStore, response); // Nếu API gọi thành công. Chúng ta save access_token và Store
+    // yield call(saveTokenToStore, response); // Nếu API gọi thành công. Chúng ta save access_token và Store
     yield put({ 
       type: "LOGIN_SUCCESS",
       payload: response,
@@ -33,6 +33,7 @@ function* doLogin(username: any, password: any) {
   }
 }
 
-export function* watchLogin() {
-  yield takeLatest(actionLogin , doLogin);
+export default function*(action: any) {
+  console.log('Login Saga - Action', action);
+  yield call(doLogin, action.payload.username, action.payload.password);
 }

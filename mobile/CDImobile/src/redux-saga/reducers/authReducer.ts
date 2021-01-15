@@ -5,6 +5,11 @@ const initData = {
     accessToken: '',
     isLoading: false,
     error: '',
+    id: '',
+    createdAt: '',
+    name: '',
+    avatar: '',
+    email: '',
   };
   
   const loginReducer = (state = initData, { type, payload }: any) => {
@@ -18,6 +23,11 @@ const initData = {
       case 'LOGIN_SUCCESS':
         return {
           ...state,
+          id: payload.id,
+          createdAt: payload.createdAt,
+          name: payload.name,
+          avatar: payload.avatar,
+          email: payload.email,
           refreshToken: payload.access_token,
           accessToken: payload.refresh_token,
           isLoading: false,

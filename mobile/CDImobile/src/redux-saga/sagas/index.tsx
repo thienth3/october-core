@@ -1,9 +1,10 @@
 import { fork, all, takeLatest } from 'redux-saga/effects';
-import {watchLogin} from './authSaga';
+import { HANDLE_LOGIN } from '../actions/loginAction';
+import authSaga from './authSaga';
 
 const sagas = function*() {
   yield all([
-    fork(watchLogin)
+    takeLatest(HANDLE_LOGIN, authSaga)
   ]);
 };
 export default sagas;
