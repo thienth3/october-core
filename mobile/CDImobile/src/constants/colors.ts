@@ -3,5 +3,6 @@ export const colors = {
   accent: "#AF2923",
   containerBg: "#FFF",
   textColor: "#000",
-  borderColor: "#ccc"
+  borderColor: "#ccc",
+  grayColor: "#7F7F7F"
 };

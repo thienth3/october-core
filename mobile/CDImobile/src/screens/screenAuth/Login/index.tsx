@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  TouchableOpacity,
   AsyncStorage,
   ClippingRectangle,
   // Button
@@ -59,7 +60,7 @@ class Login extends Component<Props, {}> {
   };
 
   render() {
-    // const { navigation, handleLogin} = this.props;
+    const { navigation} = this.props;
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView
@@ -78,9 +79,9 @@ class Login extends Component<Props, {}> {
                 return (
                   <View>
                     <View style={styles.headStyle}>
-                      <Icon name="emotsmile" size={100} />
+                      <Icon name="social-youtube" size={100} />
                       <Text style={styles.headText}>
-                        Build Something Amazing
+                        Welcome to CDI
                       </Text>
                     </View>
                     <View style={styles.inputContainer}>
@@ -102,12 +103,19 @@ class Login extends Component<Props, {}> {
                       <ButtonComponent text="Login" onPress={props.handleSubmit} />
                     </View>
                       {/* <Button text="Register" onPress={() => navigation.navigate("Register")} /> */}
+                      
                   </View>
                 );
               }}
             </Formik>
           </ScrollView>
         </KeyboardAvoidingView>
+        <TouchableOpacity style={styles.signupLink} 
+            onPress={() => navigation.navigate("Register") }>
+                        <Text style={styles.linkText}>
+                        Don't have an account? Signup
+                        </Text>
+                      </TouchableOpacity>
       </View>
     );
   }
